@@ -7,7 +7,7 @@ const fs = require('fs');
 const botconfig = require('./botconfig.json');
 let cooldown = new Set();
 let cdseconds = 5;
-const token - process.env.token;
+const token = process.env.token;
 
 fs.readdir('./commands/', (err, files) => {
     if (err) return console.log(err);
