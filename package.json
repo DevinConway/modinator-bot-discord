@@ -1,0 +1,14 @@
+{
+	"name": "modinator-bot-discord",
+	"version": "0.0.1",
+	"main": "index.js",
+	"engines": {
+		"node": "10.16.0"
+	},
+	"scripts": {
+		"start": "node index.js"
+	},
+	"dependencies": {
+		"discord.js": "11.5"
+	}
+}
