@@ -9,7 +9,8 @@ module.exports.run = async (client, message, args) => {
 	}
 	
 	const done = new Discord.RichEmbed()
-		.setAuthor('Done! ' + emoji('602343210374922281'), client.user.displayAvatarURL)
+		.setAuthor('Done! ', client.user.displayAvatarURL)
+		.setDescription('All messages cleared!' + emoji('602343210374922281'))
 		.setColor('#386e36')
 
 	if(!message.member.hasPermission('MANAGE_MESSAGES')) {
