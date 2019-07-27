@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 
+
 const fs = require('fs');
 //const token = process.env.token;
 const botconfig = require('./botconfig.json');
@@ -26,7 +27,7 @@ fs.readdir('./commands/', (err, files) => {
 
 client.on('ready', () => {
     console.log(`${client.user.username} is online`);
-    client.user.setActivity(`to ;help | vBeta`, {type: 'LISTENING'});
+    client.user.setActivity(`you do m!help | vBeta`, {type: 'WATCHING'});
 });
 
 client.on('destroy', () =>{
@@ -34,11 +35,20 @@ client.on('destroy', () =>{
 });
 
 client.on('message', message => {
+
+    function emoji (id) {
+        return client.emojis.get(id).toString();
+    }
+
     if (message.author.bot) return;
     if (message.channel.type === 'dm') return;
     if (message.content === 'what is the date') {
+        message.delete(1);
         const date = new Date().toUTCString();
-        message.reply(`:GreenCheck:602343210374922281 ${date}`);
+        message.reply(`${date} ${emoji('602343210374922281')}`)
+            .then(msg => {
+                msg.delete(6000);
+            });
     }
     if (message.content === 'ping') {
         message.delete(3000);
@@ -57,27 +67,7 @@ client.on('message', message => {
             });
 
     }
-    if(message.content === 'modinator') {
-        message.delete(10000);
-        message.channel.send('_yes?_ 🤔')
-            .then(msg => {
-                msg.delete(10000);
-            });
-    }
-    if(message.content === 'Modinator') {
-        message.delete(10000);
-        message.channel.send('_may i help you?_ 🤔')
-            .then(msg => {
-                msg.delete(10000);
-            });
-    }
-    if(message.content === 'hi') {
-        message.delete(4000);
-        message.channel.send('_bye_')
-            .then(msg => {
-                msg.delete(4000);
-            });
-    }
+
 
     const prefix = botconfig.prefix;
     if (message.content.indexOf(prefix) !== 0) return;
@@ -88,6 +78,10 @@ client.on('message', message => {
     const commandFile = client.commands.get(cmd.slice(prefix.length));
     if (commandFile) commandFile.run(client, message, args);
 
+});
+
+client.on("guildCreate", guild => {
+    guild.owner.sendMessage('Thank you for adding me! I\'m sure it will be a pleasure working alongside you and your sevrer\nBut there is jut _one_  tiny little thing I need you to do for me\n\n**1.)** Go to any channel that I have access to\n**2.)** Do the simple command `m!setup`\n\nAnd **__BOOM__** we\'re all good to go\nThank you again!');
 });
 
 client.login(token);
